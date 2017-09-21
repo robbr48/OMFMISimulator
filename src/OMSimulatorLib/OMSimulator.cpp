@@ -374,3 +374,65 @@ void oms_setVariableFilter(void* model, const char* instanceFilter, const char* 
   CompositeModel* pModel = (CompositeModel*)model;
   pModel->setVariableFilter(instanceFilter, variableFilter);
 }
+
+int oms_getNumberOfInterfaces(void *model)
+{
+  if (!model)
+  {
+    return -1;
+  }
+
+  CompositeModel* pModel = (CompositeModel*)model;
+  return pModel->getNumberOfInterfaces();
+}
+
+const char* oms_getInterfaceCausality(void *model, int idx)
+{
+  if (!model)
+  {
+    return "";
+  }
+
+  CompositeModel* pModel = (CompositeModel*)model;
+
+  //Convert causality STL string to char*
+  std::string causalityStr = pModel->getInterfaceCausality(idx);
+  char* retval = new char[sizeof(causalityStr.c_str()) + 1]; //+1 for null termination
+  strcpy(retval, causalityStr.c_str());
+
+  return retval;
+}
+
+const char *oms_getInterfaceName(void *model, int idx)
+{
+  if (!model)
+  {
+    return "";
+  }
+
+  CompositeModel* pModel = (CompositeModel*)model;
+
+  //Convert name STL string to char*
+  std::string nameStr = pModel->getInterfaceName(idx);
+  char* retval = new char[sizeof(nameStr.c_str()) + 1]; //+1 for null termination
+  strcpy(retval, nameStr.c_str());
+
+  return retval;
+}
+
+const char *oms_getInterfaceVariable(void *model, int idx)
+{
+  if (!model)
+  {
+    return "";
+  }
+
+  CompositeModel* pModel = (CompositeModel*)model;
+
+  //Convert variable STL string to char*
+  std::string variableStr = pModel->getInterfaceVariable(idx);
+  char* retval = new char[sizeof(variableStr.c_str()) + 1]; //+1 for null termination
+  strcpy(retval, variableStr.c_str());
+
+  return retval;
+}
