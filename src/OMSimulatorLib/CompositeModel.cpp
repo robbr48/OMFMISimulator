@@ -863,7 +863,7 @@ int CompositeModel::getNumberOfInterfaces()
   return interfaceNames.size();
 }
 
-std::string CompositeModel::getInterfaceCausality(int idx)
+oms_causality_t CompositeModel::getInterfaceCausality(int idx)
 {
   std::string variableName = interfaceVariables.at(idx);
   std::string fmuInstance;
@@ -874,34 +874,33 @@ std::string CompositeModel::getInterfaceCausality(int idx)
 
   Variable* var = fmuInstances[fmuInstance]->getVariable(fmuVar);
   if(var->isInput())
-    return "Input";
+    return oms_causality_input;
   else if(var->isOutput())
-    return "Output";
+    return oms_causality_output;
   else if(var->isParameter())
-    return "Parameter";
+    return oms_causality_parameter;
 
-  //Error, return empty string (add error message?)
-  return "";
+  return oms_causality_undefined;
 }
 
-std::__cxx11::string CompositeModel::getInterfaceName(int idx)
+const char* CompositeModel::getInterfaceName(int idx)
 {
   if(interfaceNames.size() <= idx) {
-    //Error message?
-    return "";
+    logError("Query for interface name for non-existing interface.");
+    return NULL;
   }
 
-  return interfaceNames.at(idx);
+  return interfaceNames.at(idx).c_str();
 }
 
-std::__cxx11::string CompositeModel::getInterfaceVariable(int idx)
+const char* CompositeModel::getInterfaceVariable(int idx)
 {
   if(interfaceVariables.size() <= idx) {
-    //Error message?
-    return "";
+    logError("Query for interface variable for non-existing interface.");
+    return NULL;
   }
 
-  return interfaceVariables.at(idx);
+  return interfaceVariables.at(idx).c_str();
 }
 
 

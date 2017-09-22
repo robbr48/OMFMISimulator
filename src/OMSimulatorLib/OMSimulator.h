@@ -218,7 +218,7 @@ int oms_getNumberOfInterfaces(void* model);
  * @param idx     [in] Interface index
  * @return        Interface causality
  */
-const char* oms_getInterfaceCausality(void* model, int idx);
+oms_causality_t oms_getInterfaceCausality(void* model, int idx);
 
 /**
  * \brief Returns the name for specified external interface

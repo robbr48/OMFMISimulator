@@ -386,53 +386,37 @@ int oms_getNumberOfInterfaces(void *model)
   return pModel->getNumberOfInterfaces();
 }
 
-const char* oms_getInterfaceCausality(void *model, int idx)
+oms_causality_t oms_getInterfaceCausality(void *model, int idx)
 {
   if (!model)
   {
-    return "";
+    return oms_causality_undefined;
   }
 
   CompositeModel* pModel = (CompositeModel*)model;
-
-  //Convert causality STL string to char*
-  std::string causalityStr = pModel->getInterfaceCausality(idx);
-  char* retval = new char[sizeof(causalityStr.c_str()) + 1]; //+1 for null termination
-  strcpy(retval, causalityStr.c_str());
-
-  return retval;
+  return pModel->getInterfaceCausality(idx);
 }
 
 const char *oms_getInterfaceName(void *model, int idx)
 {
   if (!model)
   {
-    return "";
+    logError("oms_getInterfaceName: invalid pointer");
+    return NULL;
   }
 
   CompositeModel* pModel = (CompositeModel*)model;
-
-  //Convert name STL string to char*
-  std::string nameStr = pModel->getInterfaceName(idx);
-  char* retval = new char[sizeof(nameStr.c_str()) + 1]; //+1 for null termination
-  strcpy(retval, nameStr.c_str());
-
-  return retval;
+  return pModel->getInterfaceName(idx);
 }
 
 const char *oms_getInterfaceVariable(void *model, int idx)
 {
   if (!model)
   {
-    return "";
+    logError("oms_getInterfaceName: invalid pointer");
+    return NULL;
   }
 
   CompositeModel* pModel = (CompositeModel*)model;
-
-  //Convert variable STL string to char*
-  std::string variableStr = pModel->getInterfaceVariable(idx);
-  char* retval = new char[sizeof(variableStr.c_str()) + 1]; //+1 for null termination
-  strcpy(retval, variableStr.c_str());
-
-  return retval;
+  return pModel->getInterfaceVariable(idx);
 }

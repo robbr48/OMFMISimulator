@@ -76,9 +76,9 @@ public:
   void setVariableFilter(const char* instanceFilter, const char* variableFilter);
 
   int getNumberOfInterfaces();
-  std::string getInterfaceCausality(int idx);
-  std::string getInterfaceName(int idx);
-  std::string getInterfaceVariable(int idx);
+  oms_causality_t getInterfaceCausality(int idx);
+  const char* getInterfaceName(int idx);
+  const char* getInterfaceVariable(int idx);
 
 private:
   void updateInputs(DirectedGraph& graph);
